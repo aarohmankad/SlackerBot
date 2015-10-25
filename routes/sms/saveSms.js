@@ -18,12 +18,10 @@ function findChannel (channelName) {
       var channels = JSON.parse(data.text).channels;
       for (var i = channels.length - 1; i >= 0; i--) {
         console.log('going through ids', channels[i].name);
-        if (channels[i].name !== channelName) {
-          return;
+        if (channels[i].name === channelName) {
+          console.log('returning id');
+          return deferred.resolve(channels[i].id);
         }
-
-        console.log('returning id');
-        return deferred.resolve(channels[i].id);
       };
     });
 
