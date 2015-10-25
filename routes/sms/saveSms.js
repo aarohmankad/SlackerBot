@@ -7,7 +7,7 @@ function findChannel (channelName) {
   var deferred = $q.defer();
 
   request
-    .get('https://slack.com/api/channels.list?token=' + encodeURIComponent(TOKEN) + '&pretty=1')
+    .get('https://slack.com/api/channels.list?token=' + TOKEN + '&pretty=1')
     .end(function (err, data) {
       if (err) {
         return deferred.reject(err);
