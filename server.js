@@ -34,8 +34,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-// Instantiate all our routes
-require('./routes/index')(app);
 
 slack.on('message', function (message) {
   var
@@ -57,6 +55,9 @@ slack.on('message', function (message) {
 });
 
 slack.login();
+
+// Instantiate all our routes
+require('./routes/index')(app);
 
 // Start server
 app.listen(port);
