@@ -36,8 +36,10 @@ module.exports = function(router) {
     findChannel(wantedChannel)
       .then(function(channelId) {
         console.log('found channel id', channelId);
+        var url = 'https://slack.com/api/chat.postMessage?token=' + TOKEN + '&channel=' + channelId + '&text=' + encodeURIComponent(req.body.Body) + '&pretty=1';
+        console.log(url);
         request
-          .post('https://slack.com/api/chat.postMessage?token=' + TOKEN + '&channel=' + channelId + '&text=' + encodeURIComponent(req.body.Body) + '&pretty=1');
+          .post(url);
       });
   });
 };
