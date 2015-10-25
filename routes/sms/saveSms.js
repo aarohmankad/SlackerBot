@@ -8,7 +8,11 @@ function findChannel (channelName) {
     .send({
       token: TOKEN,
     })
-    .end(function (data) {
+    .end(function (err, data) {
+      if (err) {
+        console.log(err);
+      };
+
       for (var i = data.channels.length - 1; i >= 0; i--) {
         if (data.channels[i].name !== channelName) {
           return;
