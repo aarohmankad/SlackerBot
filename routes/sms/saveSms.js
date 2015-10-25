@@ -28,13 +28,13 @@ function findChannel (channelName) {
 }
 
 module.exports = function(router) {
-  // A POST request to /api/students will 
-  // create a student based on request body
   router.post('/saveSms', function (req, res) {
     var wantedChannel = req.body.Body.split(/:/)[0];
+    console.log('found wanted channel', wantedChannel);
 
     findChannel(wantedChannel)
       .then(function(channelId) {
+        console.log('found channel id', channelId);
         request
           .post('https://slack.com/api/chat.postMessage')
           .send({
