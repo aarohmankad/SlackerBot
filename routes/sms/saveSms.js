@@ -10,14 +10,14 @@ function findChannel (channelName) {
         console.log(err);
       };
 
-      console.log(JSON.parse(data.text));
-      // for (var i = data.channels.length - 1; i >= 0; i--) {
-      //   if (data.channels[i].name !== channelName) {
-      //     return;
-      //   }
+      var channels = JSON.parse(data.text).channels;
+      for (var i = channels.length - 1; i >= 0; i--) {
+        if (channels[i].name !== channelName) {
+          return;
+        }
 
-      //   return data.channels[i].id;
-      // };
+        return channels[i].id;
+      };
     });
 }
 
