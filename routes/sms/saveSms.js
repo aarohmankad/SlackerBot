@@ -4,10 +4,7 @@ var
 
 function findChannel (channelName) {
   request
-    .get('https://slack.com/api/channels.list')
-    .send({
-      token: TOKEN,
-    })
+    .get('https://slack.com/api/channels.list/?token=' + encodeURIComponent(TOKEN))
     .end(function (err, data) {
       if (err) {
         console.log(err);
