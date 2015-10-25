@@ -36,11 +36,11 @@ module.exports = function(router) {
     findChannel(wantedChannel)
       .then(function(channelId) {
         console.log('found channel id', channelId);
-        // var url = 'https://slack.com/api/chat.postMessage?token=' + TOKEN + '&channel=' + channelId + '&text=' + encodeURIComponent(req.body.Body) + '&pretty=1';
-        var url = 'https://slack.com/api/chat.postMessage?token=xoxp-9732185250-9732249015-13178236384-3cfc317adb&channel=C0D4UUZJ4&text=there%20is%20text!&pretty=1';
-        console.log(url);
         request
-          .post(url);
+          .post('https://slack.com/api/chat.postMessage?token=' + TOKEN + '&channel=' + channelId + '&text=' + encodeURIComponent(req.body.Body) + '&pretty=1')
+          .end(function (err, data) {
+            res.send(data.message);
+          });
       });
   });
 };
