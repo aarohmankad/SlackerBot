@@ -32,8 +32,9 @@ module.exports = function(router) {
   // create a student based on request body
   router.post('/saveSms', function (req, res) {
     var wantedChannel = req.body.Body.split(/:/)[0];
+
     findChannel(wantedChannel)
-      .then(function () {
+      .then(function(channelId) {
         request
           .post('https://slack.com/api/chat.postMessage')
           .send({
