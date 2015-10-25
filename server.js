@@ -2,6 +2,9 @@ var
   express = require('express'),
   app = express(),
   bodyParser = require('body-parser'),
+  Slack = require('slack-client'),
+  slack = new Slack('xoxb-13180781681-ZxbeGfSGZJ5bBVmlFHOtlUYn', true, true),
+  twilio = require('twilio')('AC9bcdf69e0e7df9756cc208aba249d2c9', '4a2c51d5d7cbb3b69ee3581321348acc'),
   port = process.env.PORT || 8000;
 
 // Allow us to return json to client
@@ -9,6 +12,7 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }));
 app.use(bodyParser.json());
+
 
 // Add headers for http requests
 app.use(function (req, res, next) {
@@ -32,6 +36,27 @@ app.use(function (req, res, next) {
 
 // Instantiate all our routes
 require('./routes/index')(app);
+
+slack.on('message', function (message) {
+  var
+    sender = message._client.users[message.user].name,
+    channel = message._client.channels[message.channel].name,
+    message = message.text;
+
+  twilio.sendMessage({
+    to: '+17604987135',
+    from: '+17608915709',
+    body: sender + ' (' + channel + ') - ' + message,
+  }, function (err, data) {
+    if (err) {
+      console.log(err);
+    }
+
+    console.log(data.body);
+  });
+});
+
+slack.login();
 
 // Start server
 app.listen(port);
