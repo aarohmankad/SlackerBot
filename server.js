@@ -13,7 +13,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-
 // Add headers for http requests
 app.use(function (req, res, next) {
 
@@ -33,7 +32,6 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
-
 
 slack.on('message', function (message) {
   var
